@@ -4,9 +4,11 @@ import { koaBody } from 'koa-body'
 
 import '../config/index.js'
 import router from '../routes/index.js'
+import logger from '../middlewares/logger.js'
 
 const app = new Koa()
 
+app.use(logger)
 app.use(cors())
 app.use(koaBody())
 app.use(router.routes())

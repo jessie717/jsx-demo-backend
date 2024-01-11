@@ -1,4 +1,7 @@
 import axios from 'axios'
+
+import logger from '../middlewares/logger.js'
+
 // 表格数据
 const queryIndicatorData = async (id, version, type) => {
   return await axios.get(
@@ -42,26 +45,19 @@ const queryPatient = async () => {
 }
 const queryData = async (ctx, next) => {
   const { id, version, type } = ctx.request.query
-  try {
-    // console.log('id, version, type --->', id, version, type)
-    // const indicatorData = await queryIndicatorData(id, version, type)
-    // console.log('indicatorData', indicatorData.data)
-    // const slices = await querySlices(id, version)
-    // console.log('slices ===>', slices)
-    // const originDicom = await queryOriginDicom(id, version)
-    const patient = await queryPatient()
-    console.log('patient', patient.data)
-    ctx.body = {
-      code: 200,
-      msg: patient.data.msg,
-      data: patient.data.data
-    }
-  } catch (error) {
-    console.log('error', error)
-    ctx.body = {
-      code: error.code,
-      message: error.msg
-    }
+  // console.log('id, version, type --->', id, version, type)
+  // const indicatorData = await queryIndicatorData(id, version, type)
+  // console.log('indicatorData', indicatorData.data)
+  // const slices = await querySlices(id, version)
+  // console.log('slices ===>', slices)
+  // const originDicom = await queryOriginDicom(id, version)
+  const patient = await queryPatient()
+  // console.log('patient', patient.data)
+  const { code, msg, data } = patient.data
+  ctx.body = {
+    code,
+    msg,
+    data
   }
 }
 
